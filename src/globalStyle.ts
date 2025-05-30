@@ -2,7 +2,7 @@ import { css } from "hono/css";
 
 export const globalStyle = css`
   :root {
-    // Place for variable
+    // Place for variables
   }
 
   *,

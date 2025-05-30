@@ -1,7 +1,7 @@
 //! Make sure to restart the server when doing stuff in this file
 
 import { FSWatcher, watch } from 'fs';
-import { spawn, spawnSync } from 'bun';
+import { spawnSync } from 'bun';
 import { Hono } from 'hono';
 import { createBunWebSocket } from 'hono/bun';
 import { Style } from 'hono/css';
