@@ -1,0 +1,12 @@
+{
+  "name": "bun-cms",
+  "scripts": {
+    "dev": "bun admin.build.ts && bun --env-file=.env.dev run --hot src/index.tsx"
+  },
+  "dependencies": {
+    "hono": "^4.7.10"
+  },
+  "devDependencies": {
+    "@types/bun": "latest"
+  }
+}
