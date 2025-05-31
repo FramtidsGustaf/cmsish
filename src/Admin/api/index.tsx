@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { createPage, deletePage, getAllPages, getPageById, updatePage } from './controllers/pages';
 import { createPost, deletePost, getAllPosts, getPostById, updatePost } from './controllers/posts';
-import { createBlock, deleteBlock, getBlocksByPageId } from './controllers/blocks';
+import { createBlock, deleteBlock, getBlocksByPageId, updateBlock } from './controllers/blocks';
 
 const adminApiRoute = new Hono().basePath('/api');
 

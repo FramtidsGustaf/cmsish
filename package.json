@@ -4,7 +4,8 @@
     "dev": "bun admin.build.ts && bun --env-file=.env.dev run --hot src/index.tsx"
   },
   "dependencies": {
-    "hono": "^4.7.10"
+    "hono": "^4.7.10",
+    "superstruct": "^2.0.2"
   },
   "devDependencies": {
     "@types/bun": "latest"
