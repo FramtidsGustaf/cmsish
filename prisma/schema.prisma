@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Page {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  seo         Json
+  path        String
+  isPublished Boolean   @default(false)
+  publishedAt DateTime?
+  views       Int       @default(0)
+  latestView  DateTime?
+  version     Int       @default(1)
+  blocks      Block[]
+}
+
+model Block {
+  id       Int    @id @default(autoincrement())
+  type     String
+  position Int
+  data     Json
+  pageId   Int
+  Page     Page   @relation(fields: [pageId], references: [id])
+
+  @@unique([pageId, position])
+}
+
+model Post {
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  isPublished Boolean   @default(false)
+  publishedAt DateTime?
+  title       String
+  content     String
+  seo         Json
+  views       Int       @default(0)
+  latestView  DateTime
+  version     Int       @default(1)
+  userId      Int?
+  User        User?     @relation(fields: [userId], references: [id])
+}
+
+model User {
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  password        String
+  username        String
+  profileImageUrl String
+  posts           Post[]
+
+  @@unique([username])
+}
+
+model Media {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  name      String
+  url       String
+  type      String
+  size      Int?
+  altText   String?
+}
