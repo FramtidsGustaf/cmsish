@@ -1,0 +1,30 @@
+services:
+  cms:
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    depends_on:
+      - db
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/app
+    environment:
+      BUN_MODE: production
+      DATABASE_URL: 'postgresql://postgres:example@db:5432/cmsdb'
+    command: bun run prod
+
+  db:
+    image: postgres:17
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: example
+      POSTGRES_DB: cmsdb
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+
+volumes:
+  postgres-data:

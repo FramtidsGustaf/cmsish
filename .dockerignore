@@ -1,0 +1,10 @@
+/static
+README.md
+.dockerignore
+.gitignore
+.prettierrc.json
+Dockerfile
+/.git
+Makefile
+
+/generated/prisma

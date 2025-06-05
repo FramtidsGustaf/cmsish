@@ -1,9 +1,12 @@
 {
   "name": "bun-cms",
   "scripts": {
-    "dev": "bun admin.build.ts && bun --env-file=.env.dev run --hot src/index.tsx"
+    "dev": "bun admin.build.ts && bun run db:deploy && bun --env-file=.env.dev run --hot src/index.tsx",
+    "prod": "bun admin.build.ts && bun src/index.tsx",
+    "db:deploy": "bunx prisma generate && bunx prisma migrate dev --name init"
   },
   "dependencies": {
+    "@prisma/client": "6.9.0",
     "hono": "^4.7.10",
     "superstruct": "^2.0.2"
   },

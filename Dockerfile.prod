@@ -1,0 +1,16 @@
+FROM oven/bun:1.2
+
+WORKDIR /app
+
+COPY package.json ./
+COPY bun.lock ./
+COPY src ./src
+
+RUN bun install
+
+COPY prisma ./prisma/
+COPY . .
+
+EXPOSE 3000
+
+CMD ["bun", "run", "prod"]
