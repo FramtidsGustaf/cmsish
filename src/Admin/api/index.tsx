@@ -3,7 +3,7 @@ import { createPage, deletePage, getAllPages, getPageById, updatePage } from './
 import { createPost, deletePost, getAllPosts, getPostById, updatePost } from './controllers/posts';
 import { createBlock, deleteBlock, getBlocksByPageId, updateBlock } from './controllers/blocks';
 
-const adminApiRoute = new Hono().basePath('/api');
+const adminApiRoute = new Hono().basePath('/v1');
 
 // PAGES
 adminApiRoute.get('/pages', getAllPages);
@@ -24,3 +24,5 @@ adminApiRoute.get('/blocks', getBlocksByPageId);
 adminApiRoute.post('/block', createBlock);
 adminApiRoute.put('/block', updateBlock);
 adminApiRoute.delete('/block', deleteBlock);
+
+export { adminApiRoute };

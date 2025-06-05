@@ -4,19 +4,28 @@ import { csrf } from 'hono/csrf';
 import { secureHeaders } from 'hono/secure-headers';
 import { jsxRenderer } from 'hono/jsx-renderer';
 import { serveStatic } from 'hono/bun';
+import { cors } from 'hono/cors';
 
 import { adminRoute, adminWebsocket } from './Admin';
 import { publicRoute } from './Public';
 import { robotRoute, siteMapRoute } from './Seo';
 import { Style } from 'hono/css';
 import { globalStyle } from './globalStyle';
+import { adminApiRoute } from './Admin/api';
 
 const app = new Hono();
 
-app.use(csrf());
+// app.use(csrf());
 app.use(secureHeaders());
 app.use(logger());
 app.use('/static/*', serveStatic({ root: './' }));
+
+app.use('*', cors());
+
+app.route('/robots.txt', robotRoute);
+app.route('/sitemap.xml', siteMapRoute);
+app.route('/admin', adminRoute);
+app.route('/api', adminApiRoute);
 
 app.use(
   '/*',
@@ -29,10 +38,6 @@ app.use(
     );
   }),
 );
-
-app.route('/robots.txt', robotRoute);
-app.route('/sitemap.xml', siteMapRoute);
-app.route('/admin', adminRoute);
 app.route('/*', publicRoute);
 
 Bun.serve({

@@ -14,6 +14,7 @@ export const adminGlobalStyles = css`
 
     --white: ${theme.colors.white};
     --text-color: ${theme.colors.dark};
+    --dark-bg: ${theme.colors.darkLight};
     --primary-color: ${theme.colors.primaryColor};
     --primary-color-light: ${theme.colors.primaryColorLight};
     --content-background-color: ${theme.colors.contentBackgroundColor};

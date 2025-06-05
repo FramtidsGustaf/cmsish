@@ -2,9 +2,11 @@ export const theme = {
   colors: {
     white: '#ffffff',
     dark: '#5D7285',
+    darkLight: "#c5daed",
     primaryColor: '#0c7fda',
     primaryColorLight: '#e9f5fe',
     contentBackgroundColor: '#eff2f4'
+
   },
   breakPoints: {
     mobile: {
