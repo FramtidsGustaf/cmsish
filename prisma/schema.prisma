@@ -8,25 +8,32 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  ADMIN
+  USER
+}
+
 model Page {
   id          Int       @id @default(autoincrement())
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  seo         Json
+  seo         Json?
   path        String
-  isPublished Boolean   @default(false)
+  isPublished Boolean?  @default(false)
   publishedAt DateTime?
-  views       Int       @default(0)
+  views       Int?      @default(0)
   latestView  DateTime?
-  version     Int       @default(1)
+  version     Int?      @default(1)
   blocks      Block[]
+
+  @@unique([path, version])
 }
 
 model Block {
   id       Int    @id @default(autoincrement())
   type     String
   position Int
-  data     Json
+  data     Json?
   pageId   Int
   Page     Page   @relation(fields: [pageId], references: [id])
 
@@ -37,14 +44,14 @@ model Post {
   id          Int       @id @default(autoincrement())
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt
-  isPublished Boolean   @default(false)
+  isPublished Boolean?  @default(false)
   publishedAt DateTime?
   title       String
-  content     String
-  seo         Json
-  views       Int       @default(0)
-  latestView  DateTime
-  version     Int       @default(1)
+  content     String?
+  seo         Json?
+  views       Int?      @default(0)
+  latestView  DateTime?
+  version     Int?      @default(1)
   userId      Int?
   User        User?     @relation(fields: [userId], references: [id])
 }
@@ -54,11 +61,10 @@ model User {
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
   password        String
-  username        String
-  profileImageUrl String
+  username        String   @unique
+  profileImageUrl String?
   posts           Post[]
-
-  @@unique([username])
+  role            Role
 }
 
 model Media {
@@ -68,6 +74,6 @@ model Media {
   name      String
   url       String
   type      String
-  size      Int?
+  size      Int
   altText   String?
 }
